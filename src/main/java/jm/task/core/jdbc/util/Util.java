@@ -18,9 +18,10 @@ public class Util {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName;
-
-            return DriverManager.getConnection(connectionURL, userName,
+            Connection connector = DriverManager.getConnection(connectionURL, userName,
                     password);
+            connector.setAutoCommit(false);
+            return connector;
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("database connection error");
             return null;
