@@ -59,11 +59,11 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
-            if (preparedStatement.executeUpdate() == -1) {
-                connector.rollback();
-            } else {
+            if (preparedStatement.executeUpdate() != -1) {
                 connector.commit();
                 System.out.println(name + " добавлен в базу данных");
+            } else {
+                connector.rollback();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,11 +74,11 @@ public class UserDaoJDBCImpl implements UserDao {
         String SQL = "delete from users where id = (?)";
         try (PreparedStatement preparedStatement = connector.prepareStatement(SQL)) {
             preparedStatement.setLong(1, id);
-            if (preparedStatement.executeUpdate() == -1) {
-                connector.rollback();
-            } else {
+            if (preparedStatement.executeUpdate() != -1) {
                 connector.commit();
                 System.out.println("User deleted successfully");
+            } else {
+                connector.rollback();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +99,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setAge(set.getByte(4));
                 users.add(user);
             }
+            connector.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
