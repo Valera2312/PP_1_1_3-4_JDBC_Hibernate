@@ -7,7 +7,9 @@ public class Main {
         // реализуйте алгоритм здесь
 
           UserServiceImpl userService = new UserServiceImpl();
-          userService.saveUser("test","test", (byte)26);
+          userService.dropUsersTable();
+          userService.createUsersTable();
+          userService.saveUser("test","test",(byte)10);
           //userService.removeUserById(9);
           userService.getAllUsers().forEach(e -> System.out.println(e.toString()));
           userService.cleanUsersTable();
