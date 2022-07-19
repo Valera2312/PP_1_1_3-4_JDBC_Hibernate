@@ -10,7 +10,7 @@ public class Main {
           userService.dropUsersTable();
           userService.createUsersTable();
           userService.saveUser("test","test",(byte)10);
-          //userService.removeUserById(9);
+          userService.removeUserById(1);
           userService.getAllUsers().forEach(e -> System.out.println(e.toString()));
           userService.cleanUsersTable();
 
